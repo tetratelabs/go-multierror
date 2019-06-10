@@ -1,33 +1,34 @@
-# go-multierror
+# multierror
 
-[![Build Status](http://img.shields.io/travis/hashicorp/go-multierror.svg?style=flat-square)][travis]
+<!-- [![Build Status](http://img.shields.io/travis/hashicorp/go-multierror.svg?style=flat-square)][travis] -->
 [![Go Documentation](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)][godocs]
 
-[travis]: https://travis-ci.org/hashicorp/go-multierror
-[godocs]: https://godoc.org/github.com/hashicorp/go-multierror
+<!-- [travis]: https://travis-ci.org/hashicorp/go-multierror -->
+[godocs]: https://godoc.org/github.com/tetratelabs/multierror
 
-`go-multierror` is a package for Go that provides a mechanism for
-representing a list of `error` values as a single `error`.
+`multierror` is a package for Go that provides a mechanism for
+representing a list of `error` values as a single `error`. It is
+a fork off HashiCorp's [go-multierror](https://github.com/hashicorp/go-multierror) package.
 
 This allows a function in Go to return an `error` that might actually
 be a list of errors. If the caller knows this, they can unwrap the
 list and access the errors. If the caller doesn't know, the error
 formats to a nice human-readable format.
 
-`go-multierror` implements the
+`multierror` implements the
 [errwrap](https://github.com/hashicorp/errwrap) interface so that it can
 be used with that library, as well.
 
 ## Installation and Docs
 
-Install using `go get github.com/hashicorp/go-multierror`.
+Install using `go get github.com/tetratelabs/multierror`.
 
 Full documentation is available at
-http://godoc.org/github.com/hashicorp/go-multierror
+http://godoc.org/github.com/tetratelabs/multierror
 
 ## Usage
 
-go-multierror is easy to use and purposely built to be unobtrusive in
+multierror is easy to use and purposely built to be unobtrusive in
 existing Go applications/libraries that may not be aware of it.
 
 **Building a list of errors**
