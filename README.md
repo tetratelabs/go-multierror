@@ -1,4 +1,4 @@
-# go-multierror
+# multierror
 
 [![CircleCI](https://img.shields.io/circleci/build/github/hashicorp/go-multierror/master)](https://circleci.com/gh/hashicorp/go-multierror)
 [![Go Reference](https://pkg.go.dev/badge/github.com/hashicorp/go-multierror.svg)](https://pkg.go.dev/github.com/hashicorp/go-multierror)
@@ -7,8 +7,9 @@
 [circleci]: https://app.circleci.com/pipelines/github/hashicorp/go-multierror
 [godocs]: https://pkg.go.dev/github.com/hashicorp/go-multierror
 
-`go-multierror` is a package for Go that provides a mechanism for
-representing a list of `error` values as a single `error`.
+`multierror` is a package for Go that provides a mechanism for
+representing a list of `error` values as a single `error`. It is
+a fork off HashiCorp's [go-multierror](https://github.com/hashicorp/go-multierror) package.
 
 This allows a function in Go to return an `error` that might actually
 be a list of errors. If the caller knows this, they can unwrap the
@@ -22,7 +23,7 @@ for introspecting on error values.
 
 ## Installation and Docs
 
-Install using `go get github.com/hashicorp/go-multierror`.
+Install using `go get github.com/tetratelabs/multierror`.
 
 Full documentation is available at
 https://pkg.go.dev/github.com/hashicorp/go-multierror
@@ -47,7 +48,7 @@ you're on an older version of go:
 
 ## Usage
 
-go-multierror is easy to use and purposely built to be unobtrusive in
+multierror is easy to use and purposely built to be unobtrusive in
 existing Go applications/libraries that may not be aware of it.
 
 **Building a list of errors**
