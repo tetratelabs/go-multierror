@@ -1,9 +1,5 @@
 package multierror
 
-import (
-	"fmt"
-)
-
 // Error is an error type to track multiple errors. This is used to
 // accumulate errors in cases and return them as a single "error".
 type Error struct {
@@ -14,7 +10,7 @@ type Error struct {
 func (e *Error) Error() string {
 	fn := e.ErrorFormat
 	if fn == nil {
-		fn = ListFormatFunc
+		fn = LineErrorFormatFunc
 	}
 
 	return fn(e.Errors)
@@ -35,10 +31,6 @@ func (e *Error) ErrorOrNil() error {
 	return e
 }
 
-func (e *Error) GoString() string {
-	return fmt.Sprintf("*%#v", *e)
-}
-
 // WrappedErrors returns the list of errors that this Error is wrapping.
 // It is an implementation of the errwrap.Wrapper interface so that
 // multierror.Error can be used with that library.
@@ -48,4 +40,18 @@ func (e *Error) GoString() string {
 // satisfy the errwrap.Wrapper interface.
 func (e *Error) WrappedErrors() []error {
 	return e.Errors
+}
+
+// SetFormatter if provided with a multierror will update the multierror
+// serialization function with the provided ErrorFormatFunc.
+//
+// This method is not safe to be called concurrently.
+func SetFormatter(err error, fn ErrorFormatFunc) error {
+	if e, ok := err.(*Error); ok {
+		// check for typed nil
+		if e != nil {
+			e.ErrorFormat = fn
+		}
+	}
+	return err
 }

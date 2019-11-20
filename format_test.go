@@ -38,3 +38,30 @@ func TestListFormatFuncMultiple(t *testing.T) {
 		t.Fatalf("bad: %#v", actual)
 	}
 }
+
+func TestLineFormatFuncSingle(t *testing.T) {
+	expected := `foo`
+
+	errors := []error{
+		errors.New("foo"),
+	}
+
+	actual := LineErrorFormatFunc(errors)
+	if actual != expected {
+		t.Fatalf("bad: %#v", actual)
+	}
+}
+
+func TestLineFormatFuncMultiple(t *testing.T) {
+	expected := `2 errors occurred: foo; bar`
+
+	errors := []error{
+		errors.New("foo"),
+		errors.New("bar"),
+	}
+
+	actual := LineErrorFormatFunc(errors)
+	if actual != expected {
+		t.Fatalf("bad: %#v", actual)
+	}
+}

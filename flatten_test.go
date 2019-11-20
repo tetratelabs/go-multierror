@@ -30,7 +30,7 @@ func TestFlatten(t *testing.T) {
 	* three
 
 `
-	actual := fmt.Sprintf("%s", Flatten(original))
+	actual := fmt.Sprintf("%s", SetFormatter(Flatten(original), ListFormatFunc))
 
 	if expected != actual {
 		t.Fatalf("expected: %s, got: %s", expected, actual)
