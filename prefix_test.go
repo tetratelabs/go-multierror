@@ -17,8 +17,14 @@ func TestPrefix_Error(t *testing.T) {
 }
 
 func TestPrefix_NilError(t *testing.T) {
+	var mErr *Error
+	result := Prefix(mErr, "bar")
+	if result != nil {
+		t.Fatalf("bad: %#v", result)
+	}
+
 	var err error
-	result := Prefix(err, "bar")
+	result = Prefix(err, "bar")
 	if result != nil {
 		t.Fatalf("bad: %#v", result)
 	}
