@@ -13,18 +13,13 @@ import (
 // This is useful to use when appending multiple multierrors
 // together in order to give better scoping.
 func Prefix(err error, prefix string) error {
-	if err == nil {
+	if err == nil || err == (*Error)(nil) {
 		return nil
 	}
 
 	format := fmt.Sprintf("%s {{err}}", prefix)
 	switch err := err.(type) {
 	case *Error:
-		// Typed nils can reach here, so initialize if we are nil
-		if err == nil {
-			err = new(Error)
-		}
-
 		// Wrap each of the errors
 		for i, e := range err.Errors {
 			err.Errors[i] = errwrap.Wrapf(format, e)
