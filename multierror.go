@@ -15,7 +15,7 @@ type Error struct {
 func (e *Error) Error() string {
 	fn := e.ErrorFormat
 	if fn == nil {
-		fn = ListFormatFunc
+		fn = LineErrorFormatFunc
 	}
 
 	return fn(e.Errors)
@@ -118,4 +118,17 @@ func (e chain) As(target interface{}) bool {
 // Is implements errors.Is by comparing the current value directly.
 func (e chain) Is(target error) bool {
 	return errors.Is(e[0], target)
+
+// SetFormatter if provided with a multierror will update the multierror
+// serialization function with the provided ErrorFormatFunc.
+//
+// This method is not safe to be called concurrently.
+func SetFormatter(err error, fn ErrorFormatFunc) error {
+	if e, ok := err.(*Error); ok {
+		// check for typed nil
+		if e != nil {
+			e.ErrorFormat = fn
+		}
+	}
+	return err
 }

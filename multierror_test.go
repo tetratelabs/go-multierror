@@ -28,11 +28,7 @@ func TestErrorError_custom(t *testing.T) {
 }
 
 func TestErrorError_default(t *testing.T) {
-	expected := `2 errors occurred:
-	* foo
-	* bar
-
-`
+	expected := `2 errors occurred: foo; bar`
 
 	errors := []error{
 		errors.New("foo"),
@@ -46,7 +42,12 @@ func TestErrorError_default(t *testing.T) {
 }
 
 func TestErrorErrorOrNil(t *testing.T) {
-	err := new(Error)
+	var err *Error
+	if err.ErrorOrNil() != nil {
+		t.Fatalf("bad: %#v", err.ErrorOrNil())
+	}
+
+	err = new(Error)
 	if err.ErrorOrNil() != nil {
 		t.Fatalf("bad: %#v", err.ErrorOrNil())
 	}
@@ -206,3 +207,11 @@ func TestErrorAs(t *testing.T) {
 type nestedError struct{}
 
 func (*nestedError) Error() string { return "" }
+
+func TestSetFormatter(t *testing.T) {
+	var mErr *Error
+
+	if want, have := (*Error)(nil), SetFormatter(mErr, ListFormatFunc); want != have {
+		t.Errorf("bad: %#v", have)
+	}
+}
